@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard - JobTrack</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>JobTrack</h1>
+        <p>Track your job search progress</p>
+    </header>
+
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="jobs.html">My Jobs</a>
+        <a href="add-job.html">Add Job</a>
+        <a href="index.html">Logout</a>
+    </nav>
+
+
+    <main>
+
+        <section class="dashboard-header">
+
+            <h2>Job Search Dashboard</h2>
+
+            <p>
+                Track your applications and monitor your
+                job search progress.
+            </p>
+
+        </section>
+
+
+        <section class="stats-container">
+
+    <h2>Application Progress</h2>
+
+
+    <!-- Total Applications -->
+
+    <div class="stat-card">
+
+        <div class="progress-label">
+            <h3>Total Applications</h3>
+            <span id="total-jobs">0</span>
+        </div>
+
+    </div>
+
+
+    <!-- Applied -->
+
+    <div class="stat-card">
+
+        <div class="progress-label">
+            <h3>Applied</h3>
+            <span id="applied-jobs">0</span>
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                id="applied-progress"
+                class="progress-fill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Interviews -->
+
+    <div class="stat-card">
+
+        <div class="progress-label">
+            <h3>Interviews</h3>
+            <span id="interview-jobs">0</span>
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                id="interview-progress"
+                class="progress-fill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Offers -->
+
+    <div class="stat-card">
+
+        <div class="progress-label">
+            <h3>Offers</h3>
+            <span id="offer-jobs">0</span>
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                id="offer-progress"
+                class="progress-fill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Rejected -->
+
+    <div class="stat-card">
+
+        <div class="progress-label">
+            <h3>Rejected</h3>
+            <span id="rejected-jobs">0</span>
+        </div>
+
+        <div class="progress-bar">
+
+            <div
+                id="rejected-progress"
+                class="progress-fill">
+            </div>
+
+        </div>
+
+    </div>
+
+    </section>
+        
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 JobTrack</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
