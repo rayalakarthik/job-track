@@ -1,209 +1,80 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
-
-    <title>Add Job - JobTrack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Job | JobTrack</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-    <header>
+<header>
+    <h1>JobTrack</h1>
+    <p>Track your job applications</p>
+</header>
 
-        <h1>JobTrack</h1>
+<nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="jobs.html">My Jobs</a>
+    <a href="add-job.html">Add Job</a>
+    <a href="index.html">Logout</a>
+</nav>
 
-        <p>Add a new job application</p>
+<main>
 
-    </header>
+    <section class="form-section">
 
-    <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="jobs.html">My Jobs</a>
-        <a href="add-job.html">Add Job</a>
-        <a href="index.html">Logout</a>
-    </nav>
-    <main>
-
-        <h2>Add Job Application</h2>
-
+        <h2>Add Job</h2>
 
         <form id="job-form">
 
-            <div class="form-group">
+            <label for="company">Company</label>
+            <input id="company" required>
 
-                <label for="company">
-                    Company
-                </label>
+            <label for="jobTitle">Job Title</label>
+            <input id="jobTitle" required>
 
-                <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    placeholder="e.g. Microsoft"
-                    required
-                >
+            <label for="location">Location</label>
+            <input id="location">
 
-            </div>
+            <label for="jobUrl">Job URL</label>
+            <input id="jobUrl" type="url">
 
+            <label for="salary">Salary</label>
+            <input id="salary" type="number">
 
-            <div class="form-group">
+            <label for="applicationDate">Application Date</label>
+            <input id="applicationDate" type="date" required>
 
-                <label for="jobTitle">
-                    Job Title
-                </label>
+            <label for="status">Status</label>
 
-                <input
-                    type="text"
-                    id="jobTitle"
-                    name="jobTitle"
-                    placeholder="e.g. Data Analyst"
-                    required
-                >
+            <select id="status" required>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Offer">Offer</option>
+                <option value="Accepted">Accepted</option>
+            </select>
 
-            </div>
+            <label for="notes">Notes</label>
+            <textarea id="notes" rows="4"></textarea>
 
-
-            <div class="form-group">
-
-                <label for="location">
-                    Location
-                </label>
-
-                <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    placeholder="e.g. Chicago, IL"
-                >
-
-            </div>
-
-
-            <div    class="form-group">
-
-                <label for="jobUrl">
-                    Job URL
-                </label>
-
-                <input
-                    type="url"
-                    id="jobUrl"
-                    name="jobUrl"
-                    placeholder="https://company.com/job"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="salary">
-                    Salary
-                </label>
-
-                <input
-                    type="number"
-                    id="salary"
-                    name="salary"
-                    placeholder="e.g. 80000"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="applicationDate">
-                    Application Date
-                </label>
-
-                <input
-                    type="date"
-                    id="applicationDate"
-                    name="applicationDate"
-                    required
-                >
-
-            </div>
-
-
-            <div   class="form-group">
-
-                <label for="status">
-                    Application Status
-                </label>
-
-                <select
-                    id="status"
-                    name="status"
-                    required
-                >
-
-                    <option value="Applied">
-                        Applied
-                    </option>
-
-                    <option value="Interview">
-                        Interview
-                    </option>
-
-                    <option value="Assessment">
-                        Assessment
-                    </option>
-
-                    <option value="Rejected">
-                        Rejected
-                    </option>
-
-                    <option value="Offer">
-                        Offer
-                    </option>
-
-                    <option value="Accepted">
-                        Accepted
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="notes">
-                    Notes
-                </label>
-
-                <textarea
-                    id="notes"
-                    name="notes"
-                    placeholder="Add notes about this application"
-                    rows="5"
-                ></textarea>
-
-            </div>
-
-
-            <button type="submit" class="form-button">
-                Add Job
-            </button>
+            <button type="submit">Add Job</button>
 
         </form>
-        <p id="success-message"></p>
 
-    </main>
+    </section>
 
+</main>
 
-    <footer>
+<footer>
+    © 2026 JobTrack
+</footer>
 
-        <p>© 2026 JobTrack</p>
-
-    </footer>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
