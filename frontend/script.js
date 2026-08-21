@@ -388,3 +388,14 @@ if (loginForm) {
         }
     );
 }
+
+
+async function loadJobs() {
+    const response = await fetch("/api/jobs")
+
+    const jobs = await response.json();
+
+    console.log(jobs);
+}
+
+loadJobs();
