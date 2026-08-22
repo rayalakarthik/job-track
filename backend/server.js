@@ -1,7 +1,10 @@
 const express = require("express");
 const path = require("path");
+const connectDB = require("./config/db");
+const Job = require("./models/Job");
 
 const app = express();
+connectDB();
 const PORT = 5000;
 
 app.use(express.json());
@@ -11,23 +14,32 @@ let jobs = [];
 
 
 // GET ALL JOBS
-app.get("/api/jobs", (req, res) => {
-    res.json(jobs);
+app.get("/api/jobs", async (req, res) => {
+    try {
+        const jobs = await Job.find();
+        res.json(jobs);
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch jobs"
+        });
+    }
 });
 
 
 // ADD JOB
-app.post("/api/jobs", (req, res) => {
-    const job = {
-        id: Date.now(),
-        ...req.body
-    };
+app.post("/api/jobs", async (req, res) => {
+    try {
+        const job = await Job.create(req.body);
 
-    jobs.push(job);
+        res.status(201).json(job);
+    } catch (error) {
+        console.error("Error creating job:", error);
 
-    res.status(201).json(job);
+        res.status(500).json({
+            message: "Failed to create job"
+        });
+    }
 });
-
 
 // UPDATE JOB
 app.put("/api/jobs/:id", (req, res) => {
