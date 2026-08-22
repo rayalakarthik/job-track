@@ -16,20 +16,24 @@ const jobSchema = new mongoose.Schema(
 
         location: {
             type: String,
-            trim: true
+            trim: true,
+            default: ""
         },
 
         jobUrl: {
             type: String,
-            trim: true
+            trim: true,
+            default: ""
         },
 
         salary: {
-            type: Number
+            type: Number,
+            default: null
         },
 
         applicationDate: {
-            type: Date
+            type: Date,
+            required: true
         },
 
         status: {
@@ -38,14 +42,17 @@ const jobSchema = new mongoose.Schema(
             enum: [
                 "Applied",
                 "Interview",
+                "Assessment",
+                "Rejected",
                 "Offer",
-                "Rejected"
+                "Accepted"
             ]
         },
 
         notes: {
             type: String,
-            trim: true
+            trim: true,
+            default: ""
         }
     },
     {

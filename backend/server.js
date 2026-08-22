@@ -4,29 +4,63 @@ const connectDB = require("./config/db");
 const Job = require("./models/Job");
 
 const app = express();
-connectDB();
 const PORT = 5000;
 
+// Connect to MongoDB
+connectDB();
+
+// Middleware
 app.use(express.json());
+
+// Serve frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-let jobs = [];
-
-
+// ========================================
 // GET ALL JOBS
+// ========================================
+
 app.get("/api/jobs", async (req, res) => {
     try {
-        const jobs = await Job.find();
+        const jobs = await Job.find().sort({ createdAt: -1 });
+
         res.json(jobs);
     } catch (error) {
+        console.error("Error fetching jobs:", error);
+
         res.status(500).json({
             message: "Failed to fetch jobs"
         });
     }
 });
 
+// ========================================
+// GET ONE JOB
+// ========================================
 
+app.get("/api/jobs/:id", async (req, res) => {
+    try {
+        const job = await Job.findById(req.params.id);
+
+        if (!job) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        }
+
+        res.json(job);
+    } catch (error) {
+        console.error("Error fetching job:", error);
+
+        res.status(500).json({
+            message: "Failed to fetch job"
+        });
+    }
+});
+
+// ========================================
 // ADD JOB
+// ========================================
+
 app.post("/api/jobs", async (req, res) => {
     try {
         const job = await Job.create(req.body);
@@ -35,50 +69,76 @@ app.post("/api/jobs", async (req, res) => {
     } catch (error) {
         console.error("Error creating job:", error);
 
-        res.status(500).json({
-            message: "Failed to create job"
+        res.status(400).json({
+            message: "Failed to create job",
+            error: error.message
         });
     }
 });
 
+// ========================================
 // UPDATE JOB
-app.put("/api/jobs/:id", (req, res) => {
-    const id = Number(req.params.id);
+// ========================================
 
-    const index = jobs.findIndex(job => job.id === id);
+app.put("/api/jobs/:id", async (req, res) => {
+    try {
+        const updatedJob = await Job.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+                runValidators: true
+            }
+        );
 
-    if (index === -1) {
-        return res.status(404).json({
-            message: "Job not found"
+        if (!updatedJob) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        }
+
+        res.json(updatedJob);
+    } catch (error) {
+        console.error("Error updating job:", error);
+
+        res.status(400).json({
+            message: "Failed to update job",
+            error: error.message
         });
     }
-
-    jobs[index] = {
-        id,
-        ...req.body
-    };
-
-    res.json(jobs[index]);
 });
 
-
+// ========================================
 // DELETE JOB
-app.delete("/api/jobs/:id", (req, res) => {
-    const id = Number(req.params.id);
+// ========================================
 
-    const index = jobs.findIndex(job => job.id === id);
+app.delete("/api/jobs/:id", async (req, res) => {
+    try {
+        const deletedJob = await Job.findByIdAndDelete(req.params.id);
 
-    if (index === -1) {
-        return res.status(404).json({
-            message: "Job not found"
+        if (!deletedJob) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        }
+
+        res.json({
+            message: "Job deleted successfully",
+            job: deletedJob
+        });
+    } catch (error) {
+        console.error("Error deleting job:", error);
+
+        res.status(400).json({
+            message: "Failed to delete job",
+            error: error.message
         });
     }
-
-    const deletedJob = jobs.splice(index, 1);
-
-    res.json(deletedJob[0]);
 });
 
+// ========================================
+// START SERVER
+// ========================================
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

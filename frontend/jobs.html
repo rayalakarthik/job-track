@@ -2,45 +2,347 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>My Jobs | JobTrack</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
 <body>
 
 <header>
+
     <h1>JobTrack</h1>
-    <p>Track your job applications</p>
+
+    <p>
+        Track your job applications
+    </p>
+
 </header>
 
+
 <nav>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="jobs.html">My Jobs</a>
-    <a href="add-job.html">Add Job</a>
-    <a href="index.html">Logout</a>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+    <a href="jobs.html">
+        My Jobs
+    </a>
+
+    <a href="add-job.html">
+        Add Job
+    </a>
+
+    <a href="index.html">
+        Logout
+    </a>
+
 </nav>
+
 
 <main>
 
-    <section>
+<section>
 
-        <div class="page-header">
-            <h2>My Jobs</h2>
-            <a class="button" href="add-job.html">Add Job</a>
+    <div class="page-header">
+
+        <h2>
+            My Jobs
+        </h2>
+
+        <a
+            class="button"
+            href="add-job.html"
+        >
+            Add Job
+        </a>
+
+    </div>
+
+
+    <!-- ========================================
+         SEARCH / FILTER / SORT
+    ========================================= -->
+
+    <div class="job-controls">
+
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Search company or job title..."
+        >
+
+
+        <select id="status-filter">
+
+            <option value="All">
+                All Statuses
+            </option>
+
+            <option value="Applied">
+                Applied
+            </option>
+
+            <option value="Interview">
+                Interview
+            </option>
+
+            <option value="Assessment">
+                Assessment
+            </option>
+
+            <option value="Rejected">
+                Rejected
+            </option>
+
+            <option value="Offer">
+                Offer
+            </option>
+
+            <option value="Accepted">
+                Accepted
+            </option>
+
+        </select>
+
+
+        <select id="sort-select">
+
+            <option value="newest">
+                Newest First
+            </option>
+
+            <option value="oldest">
+                Oldest First
+            </option>
+
+            <option value="company">
+                Company A-Z
+            </option>
+
+            <option value="title">
+                Job Title A-Z
+            </option>
+
+        </select>
+
+
+        <button
+            type="button"
+            id="clear-filters"
+        >
+            Clear
+        </button>
+
+    </div>
+
+
+    <!-- ========================================
+         JOB COUNT
+    ========================================= -->
+
+    <p id="job-count"></p>
+
+
+    <!-- ========================================
+         JOBS
+    ========================================= -->
+
+    <div id="jobs-container"></div>
+
+
+    <p id="no-jobs">
+        No job applications found.
+    </p>
+
+</section>
+
+
+<!-- ========================================
+     EDIT JOB MODAL
+========================================= -->
+
+<div
+    id="edit-modal"
+    class="modal"
+    hidden
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Edit Job
+            </h2>
+
+            <button
+                type="button"
+                id="close-modal"
+            >
+                ×
+            </button>
+
         </div>
 
-        <div id="jobs-container"></div>
 
-        <p id="no-jobs">No job applications yet.</p>
+        <form id="edit-job-form">
 
-    </section>
+            <input
+                type="hidden"
+                id="edit-job-id"
+            >
+
+
+            <label for="edit-company">
+                Company
+            </label>
+
+            <input
+                type="text"
+                id="edit-company"
+                required
+            >
+
+
+            <label for="edit-jobTitle">
+                Job Title
+            </label>
+
+            <input
+                type="text"
+                id="edit-jobTitle"
+                required
+            >
+
+
+            <label for="edit-location">
+                Location
+            </label>
+
+            <input
+                type="text"
+                id="edit-location"
+            >
+
+
+            <label for="edit-jobUrl">
+                Job URL
+            </label>
+
+            <input
+                type="url"
+                id="edit-jobUrl"
+            >
+
+
+            <label for="edit-salary">
+                Salary
+            </label>
+
+            <input
+                type="number"
+                id="edit-salary"
+                min="0"
+            >
+
+
+            <label for="edit-applicationDate">
+                Application Date
+            </label>
+
+            <input
+                type="date"
+                id="edit-applicationDate"
+                required
+            >
+
+
+            <label for="edit-status">
+                Status
+            </label>
+
+            <select id="edit-status">
+
+                <option value="Applied">
+                    Applied
+                </option>
+
+                <option value="Interview">
+                    Interview
+                </option>
+
+                <option value="Assessment">
+                    Assessment
+                </option>
+
+                <option value="Rejected">
+                    Rejected
+                </option>
+
+                <option value="Offer">
+                    Offer
+                </option>
+
+                <option value="Accepted">
+                    Accepted
+                </option>
+
+            </select>
+
+
+            <label for="edit-notes">
+                Notes
+            </label>
+
+            <textarea
+                id="edit-notes"
+                rows="4"
+            ></textarea>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="cancel-edit"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 </main>
 
 
-<!-- JOB TEMPLATE -->
+<!-- ========================================
+     JOB CARD TEMPLATE
+========================================= -->
 
 <template id="job-template">
 
@@ -48,47 +350,96 @@
 
         <h3 class="job-title"></h3>
 
+
         <p>
-            <strong>Company:</strong>
+
+            <strong>
+                Company:
+            </strong>
+
             <span class="company"></span>
+
         </p>
 
+
         <p>
-            <strong>Location:</strong>
+
+            <strong>
+                Location:
+            </strong>
+
             <span class="location"></span>
+
         </p>
 
+
         <p>
-            <strong>Salary:</strong>
+
+            <strong>
+                Salary:
+            </strong>
+
             <span class="salary"></span>
+
         </p>
 
+
         <p>
-            <strong>Application Date:</strong>
+
+            <strong>
+                Application Date:
+            </strong>
+
             <span class="date"></span>
+
         </p>
 
+
         <p>
-            <strong>Status:</strong>
+
+            <strong>
+                Status:
+            </strong>
+
             <span class="status"></span>
+
         </p>
+
 
         <p>
-            <strong>Notes:</strong>
+
+            <strong>
+                Notes:
+            </strong>
+
             <span class="notes"></span>
+
         </p>
 
-        <a class="job-link" target="_blank">
+
+        <a
+            class="job-link"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             View Job
         </a>
 
+
         <div class="job-actions">
 
-            <button class="edit-button">
+            <button
+                type="button"
+                class="edit-button"
+            >
                 Edit
             </button>
 
-            <button class="delete-button">
+
+            <button
+                type="button"
+                class="delete-button"
+            >
                 Delete
             </button>
 
@@ -100,10 +451,14 @@
 
 
 <footer>
+
     © 2026 JobTrack
+
 </footer>
+
 
 <script src="script.js"></script>
 
 </body>
+
 </html>

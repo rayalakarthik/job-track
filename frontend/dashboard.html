@@ -1,60 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Dashboard | JobTrack</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
+
 <body>
-    <header>
-        <h1>JobTrack</h1>
-        <p>Track your job search progress</p>
-    </header>
 
-    <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="jobs.html">My Jobs</a>
-        <a href="add-job.html">Add Job</a>
-        <a href="index.html">Logout</a>
-    </nav>
+<header>
 
-    <main>
-        <section>
-            <h2>Dashboard</h2>
+    <h1>JobTrack</h1>
 
-            <div class="stats">
-                <div class="stat">
-                    <h3>Total</h3>
-                    <span id="total-jobs">0</span>
-                </div>
+    <p>
+        Track your job search in one place
+    </p>
 
-                <div class="stat">
-                    <h3>Applied</h3>
-                    <span id="applied-jobs">0</span>
-                </div>
+</header>
 
-                <div class="stat">
-                    <h3>Interviews</h3>
-                    <span id="interview-jobs">0</span>
-                </div>
 
-                <div class="stat">
-                    <h3>Offers</h3>
-                    <span id="offer-jobs">0</span>
-                </div>
+<nav>
 
-                <div class="stat">
-                    <h3>Rejected</h3>
-                    <span id="rejected-jobs">0</span>
-                </div>
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+    <a href="jobs.html">
+        My Jobs
+    </a>
+
+    <a href="add-job.html">
+        Add Job
+    </a>
+
+    <a href="index.html">
+        Logout
+    </a>
+
+</nav>
+
+
+<main>
+
+    <!-- ========================================
+         DASHBOARD HEADER
+    ========================================= -->
+
+    <section>
+
+        <div class="page-header">
+
+            <div>
+
+                <h2>
+                    Dashboard
+                </h2>
+
+                <p>
+                    Overview of your job applications
+                </p>
+
             </div>
-        </section>
-    </main>
 
-    <footer>© 2026 JobTrack</footer>
 
-    <script src="script.js"></script>
+            <a
+                href="add-job.html"
+                class="button"
+            >
+                + Add Job
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         STATISTICS
+    ========================================= -->
+
+    <section>
+
+        <div class="dashboard-stats">
+
+
+            <!-- TOTAL -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Jobs
+                </h3>
+
+                <p
+                    id="total-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- APPLIED -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Applied
+                </h3>
+
+                <p
+                    id="applied-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- INTERVIEW -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Interviews
+                </h3>
+
+                <p
+                    id="interview-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- ASSESSMENT -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Assessments
+                </h3>
+
+                <p
+                    id="assessment-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- OFFER -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Offers
+                </h3>
+
+                <p
+                    id="offer-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- REJECTED -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Rejected
+                </h3>
+
+                <p
+                    id="rejected-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- ACCEPTED -->
+
+            <div class="stat-card">
+
+                <h3>
+                    Accepted
+                </h3>
+
+                <p
+                    id="accepted-jobs"
+                    class="stat-number"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         STATUS BREAKDOWN
+    ========================================= -->
+
+    <section class="dashboard-section">
+
+        <h2>
+            Application Status
+        </h2>
+
+
+        <div class="status-breakdown">
+
+
+            <!-- APPLIED -->
+
+            <div class="status-row">
+
+                <span>
+                    Applied
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="applied-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="applied-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- INTERVIEW -->
+
+            <div class="status-row">
+
+                <span>
+                    Interview
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="interview-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="interview-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- ASSESSMENT -->
+
+            <div class="status-row">
+
+                <span>
+                    Assessment
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="assessment-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="assessment-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- OFFER -->
+
+            <div class="status-row">
+
+                <span>
+                    Offer
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="offer-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="offer-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- REJECTED -->
+
+            <div class="status-row">
+
+                <span>
+                    Rejected
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="rejected-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="rejected-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- ACCEPTED -->
+
+            <div class="status-row">
+
+                <span>
+                    Accepted
+                </span>
+
+                <div class="progress-container">
+
+                    <div
+                        id="accepted-progress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <strong
+                    id="accepted-progress-count"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         RECENT APPLICATIONS
+    ========================================= -->
+
+    <section class="dashboard-section">
+
+        <div class="page-header">
+
+            <h2>
+                Recent Applications
+            </h2>
+
+            <a href="jobs.html">
+                View All
+            </a>
+
+        </div>
+
+
+        <div
+            id="recent-jobs"
+            class="recent-jobs"
+        ></div>
+
+
+        <p
+            id="no-recent-jobs"
+            hidden
+        >
+            No applications yet.
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 JobTrack
+
+</footer>
+
+
+<script src="script.js"></script>
+
 </body>
+
 </html>
