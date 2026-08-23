@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const connectDB = require("./config/db");
 const Job = require("./models/Job");
+const authRoutes = require("./routes/authRoutes");
+const testRoutes = require("./routes/testRoutes");
 
 const app = express();
 const PORT = 5000;
@@ -11,6 +13,8 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use("/api/auth", authRoutes);
+app.use("/api/test", testRoutes);
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
