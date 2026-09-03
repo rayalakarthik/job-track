@@ -13,7 +13,35 @@ const $ = id => document.getElementById(id);
 // ========================================
 // API FUNCTIONS
 // ========================================
+// ==========================================
+// AUTHENTICATION
+// ==========================================
 
+function getToken() {
+    return localStorage.getItem("token");
+}
+
+
+function getAuthHeaders() {
+
+    const token = getToken();
+
+    return {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+}
+function requireLogin() {
+
+    const token = getToken();
+
+    if (!token) {
+        window.location.href = "login.html";
+        return false;
+    }
+
+    return true;
+}
 
 // GET ALL JOBS
 async function getJobs() {

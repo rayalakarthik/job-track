@@ -1,47 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | JobTrack</title>
+
+    <title>Login - JobTrack</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <h1>JobTrack</h1>
-        <p>Login to your account</p>
-    </header>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-    </nav>
+    <div class="auth-container">
 
-    <main>
-        <section class="form-section">
+        <div class="auth-box">
+
+            <h1>JobTrack</h1>
+
             <h2>Login</h2>
 
-            <form id="login-form">
-                <label>Email</label>
-                <input id="email" type="email" required>
+            <p>Login to your account</p>
 
-                <label>Password</label>
-                <input id="password" type="password" required>
 
-                <button type="submit">Login</button>
+            <form id="loginForm">
+
+                <!-- Email -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Login Button -->
+                <button type="submit">
+                    Login
+                </button>
+
             </form>
 
+
+            <!-- Login Status -->
+            <p id="loginMessage"></p>
+
+
+            <!-- Register Link -->
             <p>
                 Don't have an account?
-                <a href="register.html">Register</a>
+                <a href="register.html">
+                    Register here
+                </a>
             </p>
-        </section>
-    </main>
 
-    <footer>© 2026 JobTrack</footer>
+        </div>
 
-    <script src="script.js"></script>
+    </div>
+
+
+    <script>
+
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                // Prevent page refresh
+                event.preventDefault();
+
+
+                // Get form values
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                // Show loading message
+                loginMessage.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    // ==========================================
+                    // SEND LOGIN REQUEST
+                    // ==========================================
+
+                    const response = await fetch(
+                        "http://localhost:5000/api/auth/login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                    // Convert response to JSON
+                    const data =
+                        await response.json();
+
+
+                    // ==========================================
+                    // CHECK RESPONSE
+                    // ==========================================
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message || "Login failed"
+                        );
+
+                    }
+
+
+                    // ==========================================
+                    // SAVE JWT TOKEN
+                    // ==========================================
+
+                    localStorage.setItem(
+                        "token",
+                        data.token
+                    );
+
+
+                    // ==========================================
+                    // SAVE USER INFORMATION
+                    // ==========================================
+
+                    if (data.user) {
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(data.user)
+                        );
+
+                    }
+
+
+                    // ==========================================
+                    // SUCCESS
+                    // ==========================================
+
+                    loginMessage.textContent =
+                        "Login successful!";
+
+
+                    // Redirect to dashboard
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+
+
+                // ==========================================
+                // ERROR
+                // ==========================================
+
+                catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+                    loginMessage.textContent =
+                        error.message;
+
+                }
+
+            }
+        );
+
+    </script>
+
 </body>
+
 </html>
