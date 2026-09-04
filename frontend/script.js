@@ -11,17 +11,16 @@ const $ = id => document.getElementById(id);
 
 
 // ========================================
-// API FUNCTIONS
-// ========================================
-// ==========================================
 // AUTHENTICATION
-// ==========================================
+// ========================================
 
+// Get JWT token from localStorage
 function getToken() {
     return localStorage.getItem("token");
 }
 
 
+// Create headers for authenticated API requests
 function getAuthHeaders() {
 
     const token = getToken();
@@ -31,66 +30,148 @@ function getAuthHeaders() {
         "Authorization": `Bearer ${token}`
     };
 }
+
+
+// Check whether user is logged in
 function requireLogin() {
 
     const token = getToken();
 
     if (!token) {
+
         window.location.href = "login.html";
+
         return false;
     }
 
     return true;
 }
 
+
+// ========================================
+// API FUNCTIONS
+// ========================================
+
+
+// ========================================
 // GET ALL JOBS
+// ========================================
+
 async function getJobs() {
 
-    const response = await fetch("/api/jobs");
+    const response = await fetch(
+        "/api/jobs",
+        {
+            method: "GET",
+            headers: getAuthHeaders()
+        }
+    );
+
+
+    // Handle unauthorized user
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
 
     if (!response.ok) {
-        throw new Error("Failed to load jobs");
+
+        throw new Error(
+            "Failed to load jobs"
+        );
+
     }
+
 
     return response.json();
 }
 
 
+// ========================================
 // GET ONE JOB
+// ========================================
+
 async function getJob(id) {
 
-    const response =
-        await fetch(`/api/jobs/${id}`);
+    const response = await fetch(
+        `/api/jobs/${id}`,
+        {
+            method: "GET",
+            headers: getAuthHeaders()
+        }
+    );
+
+
+    // Handle unauthorized user
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
 
     if (!response.ok) {
-        throw new Error("Failed to load job");
+
+        throw new Error(
+            "Failed to load job"
+        );
+
     }
+
 
     return response.json();
 }
 
 
+// ========================================
 // CREATE JOB
+// ========================================
+
 async function saveJob(job) {
 
-    const response =
-        await fetch("/api/jobs", {
-
+    const response = await fetch(
+        "/api/jobs",
+        {
             method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+            // Send JWT
+            headers: getAuthHeaders(),
 
             body: JSON.stringify(job)
+        }
+    );
 
-        });
+
+    // Handle unauthorized user
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
 
 
     if (!response.ok) {
 
         const error =
             await response.json();
+
 
         throw new Error(
             error.message ||
@@ -99,31 +180,48 @@ async function saveJob(job) {
 
     }
 
+
     return response.json();
 }
 
 
+// ========================================
 // UPDATE JOB
+// ========================================
+
 async function updateJob(id, job) {
 
-    const response =
-        await fetch(`/api/jobs/${id}`, {
-
+    const response = await fetch(
+        `/api/jobs/${id}`,
+        {
             method: "PUT",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+            // Send JWT
+            headers: getAuthHeaders(),
 
             body: JSON.stringify(job)
+        }
+    );
 
-        });
+
+    // Handle unauthorized user
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
 
 
     if (!response.ok) {
 
         const error =
             await response.json();
+
 
         throw new Error(
             error.message ||
@@ -132,25 +230,46 @@ async function updateJob(id, job) {
 
     }
 
+
     return response.json();
 }
 
 
+// ========================================
 // DELETE JOB
+// ========================================
+
 async function deleteJob(id) {
 
-    const response =
-        await fetch(`/api/jobs/${id}`, {
+    const response = await fetch(
+        `/api/jobs/${id}`,
+        {
+            method: "DELETE",
 
-            method: "DELETE"
+            // Send JWT
+            headers: getAuthHeaders()
+        }
+    );
 
-        });
+
+    // Handle unauthorized user
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
 
 
     if (!response.ok) {
 
         const error =
             await response.json();
+
 
         throw new Error(
             error.message ||
@@ -159,9 +278,9 @@ async function deleteJob(id) {
 
     }
 
+
     return response.json();
 }
-
 
 
 // ========================================
