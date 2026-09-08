@@ -47,6 +47,42 @@ function requireLogin() {
     return true;
 }
 
+function logout() {
+
+    // Remove authentication data
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // Redirect to login page
+    window.location.href = "login.html";
+}
+
+function displayUserName() {
+    const userData = localStorage.getItem("user");
+
+    if (!userData) {
+        return;
+    }
+
+    try {
+        const user = JSON.parse(userData);
+
+        const userNameElement = document.getElementById("userName");
+
+        if (userNameElement) {
+            userNameElement.textContent = user.name;
+        }
+    } catch (error) {
+        console.error("Error reading user data:", error);
+    }
+}
+
+function handleUnauthorized() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
 
 // ========================================
 // API FUNCTIONS
@@ -71,12 +107,7 @@ async function getJobs() {
     // Handle unauthorized user
     if (response.status === 401) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        window.location.href = "login.html";
-
+        handleUnauthorized();
         return;
     }
 
@@ -112,12 +143,7 @@ async function getJob(id) {
     // Handle unauthorized user
     if (response.status === 401) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        window.location.href = "login.html";
-
+        handleUnauthorized();
         return;
     }
 
@@ -157,12 +183,7 @@ async function saveJob(job) {
     // Handle unauthorized user
     if (response.status === 401) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        window.location.href = "login.html";
-
+        handleUnauthorized();
         return;
     }
 
@@ -207,12 +228,7 @@ async function updateJob(id, job) {
     // Handle unauthorized user
     if (response.status === 401) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        window.location.href = "login.html";
-
+        handleUnauthorized();
         return;
     }
 
@@ -255,12 +271,7 @@ async function deleteJob(id) {
     // Handle unauthorized user
     if (response.status === 401) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        window.location.href = "login.html";
-
+        handleUnauthorized();
         return;
     }
 
@@ -1826,107 +1837,62 @@ function renderRecentJobs(jobs) {
 
 
 
-// ========================================
+// ================================
 // REGISTER
-// ========================================
+// ================================
 
-const registerForm =
-    $("register-form");
-
+const registerForm = $("register-form");
 
 if (registerForm) {
 
-    registerForm.addEventListener(
-        "submit",
-        event => {
+    registerForm.addEventListener("submit", async event => {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        const name = $("name").value.trim();
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        const confirmPassword = $("confirmPassword").value;
 
-            const name =
-                $("name")
-                    .value
-                    .trim();
-
-
-            const email =
-                $("email")
-                    .value
-                    .trim();
-
-
-            const password =
-                $("password")
-                    .value;
-
-
-            const confirmPassword =
-                $("confirmPassword")
-                    .value;
-
-
-            if (
-                !name ||
-                !email ||
-                !password
-            ) {
-
-                alert(
-                    "Please fill in all fields."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                password !==
-                confirmPassword
-            ) {
-
-                alert(
-                    "Passwords do not match."
-                );
-
-                return;
-
-            }
-
-
-            const user = {
-
-                name:
-                    name,
-
-                email:
-                    email,
-
-                password:
-                    password
-
-            };
-
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(user)
-            );
-
-
-            alert(
-                "Registration successful!"
-            );
-
-
-            window.location.href =
-                "login.html";
-
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
         }
-    );
+
+        try {
+
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Registration failed");
+            }
+
+            alert("Registration successful!");
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+
+            console.error("Registration error:", error);
+
+            alert(error.message);
+        }
+
+    });
 
 }
-
 
 
 // ========================================

@@ -29,8 +29,7 @@
     <p>
         Track your job search in one place
     </p>
-
-</header>
+    
 
 
 <nav>
@@ -47,9 +46,7 @@
         Add Job
     </a>
 
-    <a href="index.html">
-        Logout
-    </a>
+    <button type="button" onclick="logout()">Logout</button>
 
 </nav>
 
@@ -61,7 +58,12 @@
     ========================================= -->
 
     <section>
-
+        <div class="welcome-section">
+            <h1>Welcome, <span id="userName"></span> 👋</h1>
+            <p>Track your job applications and manage your career progress.</p>
+        </div>
+    </section>
+    <section>
         <div class="page-header">
 
             <div>
@@ -86,14 +88,12 @@
 
         </div>
 
-    </section>
 
 
     <!-- ========================================
          STATISTICS
     ========================================= -->
 
-    <section>
 
         <div class="dashboard-stats">
 
@@ -452,6 +452,7 @@
 <script src="script.js"></script>
 <script>
     requireLogin();
+    displayUserName();
 </script>
 
 </body>

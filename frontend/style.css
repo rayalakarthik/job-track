@@ -33,27 +33,44 @@ header h1 {
 header p {
     color: var(--muted);
 }
-
 nav {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    padding: 18px;
+    align-items: center;
+    gap: 28px;
+    padding: 16px 20px;
     background: var(--white);
     border-block: 1px solid var(--border);
 }
 
-nav a {
+nav a,
+nav button {
     color: var(--text);
     text-decoration: none;
-    font-weight: bold;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-nav a:hover {
+nav a {
+    display: inline-flex;
+    align-items: center;
+}
+
+nav button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+nav a:hover, nav button:hover {
     color: var(--primary);
 }
 
-main {
+main {          
     width: min(1000px, 90%);
     margin: auto;
     padding: 40px 0;
