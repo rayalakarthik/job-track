@@ -212,7 +212,99 @@ footer {
     color: var(--muted);
     text-align: center;
 }
+/* ==========================================
+   LOGIN PAGE
+   ========================================== */
 
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.auth-box h1 {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--text);
+}
+
+.auth-box .form-group {
+    margin-bottom: 20px;
+}
+
+.auth-box label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.auth-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 7px;
+    background: var(--primary);
+    color: var(--white);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-box button:hover {
+    opacity: 0.9;
+}
+
+#loginMessage {
+    min-height: 20px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.auth-footer {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
 @media (max-width: 600px) {
     nav {
         flex-direction: column;
