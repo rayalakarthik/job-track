@@ -39,7 +39,7 @@ function requireLogin() {
 
     if (!token) {
 
-        window.location.href = "login.html";
+        window.location.replace("index.html");
 
         return false;
     }
@@ -54,7 +54,15 @@ function logout() {
     localStorage.removeItem("user");
 
     // Redirect to login page
-    window.location.href = "login.html";
+    window.location.replace("index.html");
+}
+
+function preventBackAfterLogout() {
+    window.addEventListener("pageshow", function () {
+        if (!getToken()) {
+            window.location.replace("index.html");
+        }
+    });
 }
 
 function displayUserName() {
@@ -80,7 +88,7 @@ function displayUserName() {
 function handleUnauthorized() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 
